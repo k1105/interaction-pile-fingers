@@ -108,9 +108,9 @@ export const Monitor = ({ handpose, debugLog }: Props) => {
             left: "30px",
             width: "100px",
             height: "30px",
-            background: !debugVisibility ? "rgba(0,0,0,0)" : "#fff",
-            border: "1px solid #ffffff",
-            color: debugVisibility ? "#011960" : "#fff",
+            background: !debugVisibility ? "rgba(0,0,0,0)" : "#000",
+            border: "1px solid #000",
+            color: debugVisibility ? "#fff" : "#000",
             borderRadius: "5px",
           }}
         >
@@ -143,7 +143,7 @@ export const Monitor = ({ handpose, debugLog }: Props) => {
               audio={false}
               screenshotFormat="image/jpeg"
             />
-            <div ref={logRef} style={{ fontSize: "0.8rem" }} />
+            <div ref={logRef} style={{ fontSize: "0.8rem", color: "black" }} />
           </div>
         )}
       </div>
