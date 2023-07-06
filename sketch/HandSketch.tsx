@@ -104,6 +104,8 @@ export const HandSketch = ({ handpose }: Props) => {
 
       p5.translate(window.innerWidth / 2, (2 * window.innerHeight) / 3);
 
+      let yBase = 0;
+
       for (let n = 0; n < 5; n++) {
         start = 4 * n + 1;
         end = 4 * n + 4;
@@ -114,16 +116,10 @@ export const HandSketch = ({ handpose }: Props) => {
         [left_d, right_d].forEach((d, index) => {
           const sign = (-1) ** (1 - index); //正負の符号
           p5.push();
-          p5.translate(sign * offset, 0);
-
-          if (r < Math.abs(d)) {
-            p5.line(0, 0, 0, -r);
-          } else if (d > 0) {
-            p5.line(0, 0, (sign * r) / 2, 0);
-          } else {
-            p5.line(0, 0, (sign * Math.sqrt(r ** 2 - d ** 2)) / 2, d / 2);
-            p5.line((sign * Math.sqrt(r ** 2 - d ** 2)) / 2, d / 2, 0, d);
-          }
+          p5.translate(sign * offset, yBase);
+          d = Math.min(Math.max(-r, d), 0);
+          p5.line(0, 0, (sign * Math.sqrt(r ** 2 - d ** 2)) / 2, d / 2);
+          p5.line((sign * Math.sqrt(r ** 2 - d ** 2)) / 2, d / 2, 0, d);
 
           p5.pop();
         });
@@ -147,7 +143,7 @@ export const HandSketch = ({ handpose }: Props) => {
           tmp_r_d = right_d;
         }
 
-        p5.translate(0, (tmp_l_d + tmp_r_d) / 2);
+        yBase += (tmp_l_d + tmp_r_d) / 2;
         p5.rotate(-Math.atan2(tmp_l_d - tmp_r_d, 2 * offset));
       }
     }
